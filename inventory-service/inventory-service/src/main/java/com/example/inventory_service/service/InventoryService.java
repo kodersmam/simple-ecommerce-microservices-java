@@ -12,8 +12,15 @@ public class InventoryService {
     private final InventoryRepository repository;
 
     public boolean isAvailable(Long productId, int requestedQuantity) {
-        return repository.getStockForProduct(productId)
-                .map(stock -> stock >= requestedQuantity)
+        return repository.findByProductId(productId)
+                .map(item -> item.getQuantity() >= requestedQuantity)
                 .orElse(false);
+    }
+
+    public void decreaseStock(Long productId, int quantity) {
+        repository.findByProductId(productId).ifPresent(item -> {
+            item.setQuantity(item.getQuantity() - quantity);
+            repository.save(item);
+        });
     }
 }
