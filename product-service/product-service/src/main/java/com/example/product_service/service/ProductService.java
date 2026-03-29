@@ -20,7 +20,7 @@ public class ProductService {
         return repository.findAll();
     }
 
-    @Cacheable("product")
+    @Cacheable(value = "product", key = "#id")
     public Product getById(Long id) {
         return repository.findById(id).orElse(null);
     }

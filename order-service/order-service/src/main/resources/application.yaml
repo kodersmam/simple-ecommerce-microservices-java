@@ -44,3 +44,6 @@ bucket4j:
 
 server:
   port: 8082
+
+inventory:
+  url: http://localhost:8081

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor  // potrzebny domyślny konstruktor dla Kafki
+@NoArgsConstructor
 @AllArgsConstructor
 public class OrderCreatedEvent {
     private Long orderId;

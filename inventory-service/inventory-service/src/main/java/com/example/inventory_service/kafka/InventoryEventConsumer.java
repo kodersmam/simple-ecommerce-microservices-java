@@ -14,7 +14,6 @@ public class InventoryEventConsumer {
 
     @KafkaListener(topics = "order-created", groupId = "inventory-group")
     public void consume(OrderCreatedEvent event) {
-        // tylko zmniejszamy stan jeśli order potwierdzony
         if ("CONFIRMED".equals(event.getStatus())) {
             inventoryService.decreaseStock(event.getProductId(), event.getQuantity());
         }
