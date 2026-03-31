@@ -1,15 +1,16 @@
 package com.example.inventory_service.service;
 
-
 import com.example.inventory_service.exception.InsufficientStockException;
 import com.example.inventory_service.exception.InventoryNotFoundException;
 import com.example.inventory_service.model.InventoryItem;
 import com.example.inventory_service.repo.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class InventoryService {
 
     private final InventoryRepository repository;
@@ -20,6 +21,7 @@ public class InventoryService {
                 .orElse(false);
     }
 
+    @Transactional
     public void decreaseStock(Long productId, int quantity) {
         InventoryItem item = repository.findByProductId(productId)
                 .orElseThrow(() -> new InventoryNotFoundException(productId));

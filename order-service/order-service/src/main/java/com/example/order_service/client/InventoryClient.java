@@ -1,24 +1,17 @@
 package com.example.order_service.client;
 
-
-import com.example.order_service.config.InventoryProperties;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 @Component
-@RequiredArgsConstructor
 public class InventoryClient {
 
-    private final InventoryProperties properties;
+    private final RestClient client;
 
-    private RestClient client;
-
-    @PostConstruct
-    public void init() {
+    public InventoryClient(@Value("${inventory.url}") String inventoryUrl) {
         this.client = RestClient.builder()
-                .baseUrl(properties.getUrl())
+                .baseUrl(inventoryUrl)
                 .build();
     }
 
