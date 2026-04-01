@@ -1,4 +1,4 @@
-CREATE TABLE orders
+CREATE TABLE IF NOT EXISTS orders
 (
     id         BIGSERIAL PRIMARY KEY,
     product_id BIGINT      NOT NULL,

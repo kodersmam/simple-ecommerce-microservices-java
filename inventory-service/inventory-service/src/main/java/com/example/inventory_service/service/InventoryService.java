@@ -21,9 +21,10 @@ public class InventoryService {
                 .orElse(false);
     }
 
+
     @Transactional
     public void decreaseStock(Long productId, int quantity) {
-        InventoryItem item = repository.findByProductId(productId)
+        InventoryItem item = repository.findByProductIdWithLock(productId)
                 .orElseThrow(() -> new InventoryNotFoundException(productId));
 
         if (item.getQuantity() < quantity) {
@@ -31,6 +32,6 @@ public class InventoryService {
         }
 
         item.setQuantity(item.getQuantity() - quantity);
-        repository.save(item);
     }
+
 }

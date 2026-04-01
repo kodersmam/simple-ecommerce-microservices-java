@@ -1,4 +1,4 @@
-CREATE TABLE inventory
+CREATE TABLE IF NOT EXISTS inventory
 (
     id         BIGSERIAL PRIMARY KEY,
     product_id BIGINT NOT NULL,
